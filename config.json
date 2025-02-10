@@ -17,7 +17,7 @@
     "PASSWORD": "",
     "OTPKEY": "",
     "BOTNAME": "King",
-    "PREFIX": ".",
+    "PREFIX": "/",
     "ADMINBOT": [
         "100037743553265"
     ],
