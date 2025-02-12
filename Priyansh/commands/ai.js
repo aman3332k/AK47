@@ -13,7 +13,7 @@ module.exports.config = {
 module.exports.handleEvent = async function({ api, event, args, Threads, Users }) {
   var { threadID, messageID, reason } = event;
   const moment = require("moment-timezone");
-  const time = moment.tz("Asia/Manila").format("HH:MM:ss L");
+  const time = moment.tz("Asia/Kolkata").format("HH:MM:ss L");
   var idgr = `${event.threadID}`;
   var id = event.senderID;
   var name = await Users.getNameUser(event.senderID);
@@ -94,9 +94,9 @@ module.exports.handleEvent = async function({ api, event, args, Threads, Users }
     return api.sendMessage("Sach Mai Miss Kro To Achaw Bhi Laga Krega Mujhe", threadID);
   };
 
-  if (event.body.indexOf("Kukky") == 0 || (event.body.indexOf("Ayza") == 0)) {
+  if (event.body.indexOf("Kukky") == 0 || (event.body.indexOf("@Kukky Bot") == 0)) {
     var msg = {
-      body: `🥀🪷🎀${name}🎀🪷🥀\n💖 ${rand}`
+      body: `🎀🥀🪷${name}🪷🥀\n💖🎀 ${rand}`
     }
     return api.sendMessage(msg, threadID, messageID);
   };
