@@ -94,7 +94,7 @@ module.exports.handleEvent = async function({ api, event, args, Threads, Users }
     return api.sendMessage("Sach Mai Miss Kro To Achaw Bhi Laga Krega Mujhe", threadID);
   };
 
-  if (event.body.indexOf("Kukky") == 0 || (event.body.indexOf("@Kukky Bot") == 0)) {
+  if (event.body.indexOf("Kukky") == 0 || (event.body.indexOf("Ayza") == 0)) {
     var msg = {
       body: `🥀🪷🎀${name}🎀🪷🥀\n💖 ${rand}`
     }
