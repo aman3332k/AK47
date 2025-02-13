@@ -97,6 +97,66 @@ module.exports.handleEvent = async function({ api, event, args, Threads, Users }
     "Mere 1000+ messages ka reply ek 'Hmm' se kar diya... 😤",
     "Tumhe pata hai tumhare smiley use karte ho na, woh mere dil ki dhadkan badha dete hai... 😊💓",
     // ... Continue adding diverse messages
+    
+    // 😂 Funny & Relatable
+    "😂 Mera phone aur main... Dono ki battery life ek jaise - 5 minute mein full, 5 minute mein zero!",
+    "🤣 Zindagi ki race mein cheetah banne ka plan... Par chai ki ketli ki tarah slow ho jate hain!",
+    "😆 Mummy ka ‘shadi ke liye ladki dekh lo’ bolna = Life ka hardest jump scare!",
+    "🐔 Kukdoo koo! Subah utho, par thali pe parathe nahi mile toh kya fayda?",
+    "🤪 WhatsApp pe ‘typing…’ dekh ke reply ka intezar = 21st century ka true love!",
+    "😜 Gym jane ka socha, par sofa ne pyar se bula liya!",
+    "😂 Khaana banate waqt ‘andaaz se’ jala dena = Masterchef audition fail!",
+    "🤣 Dost: Tu tension mat le! Me: *Instantly 200% more tense*",
+    "😎 Filter laga ke photo dalna... Zindagi ki asliyat chhupane ka jugaad!",
+    "🍳 Omelette flip karna ho ya zindagi... Dono mein 90% chance hai girne ka!",
+
+    // 💖 Romantic & Sweet
+    "💖 Tumhari baatein jaise momos ki chutney... Thodi spicy, par bin mange extra mile!",
+    "🌹 Tumse baat karte waqt lagta hai... Jaise 4G network pe HD call chal raha ho!",
+    "🌸 Tumhari yaad aati hai toh phone ko check karta hoon... Kya pata ‘online’ ho tum!",
+    "💌 Tumhare liye likhe messages... Drafts mein hi reh jaate hain, send karne ki himmat nahi hoti!",
+    "🌙 Raat ko sone se pehle last text tumhara hi padhna... Meri nayi aadat hai!",
+    "💞 Tumhare saath guzara har pal... Jaise unlimited WiFi ka connection!",
+    "🌠 Tumhe dekh kar lagta hai... Koi camera filter lag gaya hai duniya pe!",
+    "💓 Mere status updates sirf tumhare liye... Par ‘seen’ karke bhi react nahi karte!",
+    "🌻 Tumhari muskurahat ki brightness itni hai... Night mode bhi on nahi kar pata!",
+    "🎶 Tumhare saath gaadi mein music bajana... Jaise life ki own soundtrack mil gayi ho!",
+
+    // 💪 Motivational & Savage
+    "💪 Zindagi ko jio jaise treat karo... Jahan signal mile, wahi data chalao!",
+    "🚀 Utho, kapde pehno, aur apne dreams ko itna tagda chase karo... Ki wo dar ke bhag jaye!",
+    "🔥 Duniya ke rules follow karo... Par apne rules break karna seekho!",
+    "🎯 Jeetna hai toh rickshawala style mein chalo... Gaadi slow hai, par meter toh chalta rahe!",
+    "⚡ Failure ko momos samjho... Dipping sauce ke bina fikar nahi, maze se khao!",
+    "🏆 Competition se zyada... Khud ke yesterday version se ladna seekho!",
+    "✨ Zindagi ek TikTok video hai... Overthink mat karo, bas trend create karo!",
+    "🌄 Kal ki tension ko aaj ke trash bin mein fenko... Aur bin ko offline kar do!",
+    "🦁 Zindagi mein kabhi kabhi Simba banne ki zarurat hai... ‘Hakuna Matata’ bol ke chill karo!",
+    "🧠 Dimag ka data pack recharge karo... Kyunki zindagi mein unlimited challenges aa rahe hain!",
+
+    // 😜 Mix of Everything
+    "😎 Mere mood swings ko Olympic sport bana do... Gold medal pakka!",
+    "💸 Paisa aur pyaar dono kamaye... Par recharge karne walon ko priority do!",
+    "🍵 Chai ki pyali ho ya zindagi... Dono ko kadwa hone se pehle mix karo!",
+    "📱 Phone ki battery aur dil ki dhadkan... Dono tumhare message aate hi fast ho jate hain!",
+    "🌧️ Barsaat mein bhijna ho ya pyaar mein... Dono mein ‘wet’ hone ka mazaa hi kuch aur hai!",
+    "🎧 Earphones ke bina gaana suno... Aur single hone ke batao zindagi kaise jiyo!",
+    "🛌 Subah utho nahi, toh life ka FOMO real ho jata hai... Par neend ka FOMO bhi toh hai!",
+    "🤔 Zindagi ka asli question: ‘Online’ dikhao ya ‘typing…’ ka drama karo?",
+    "🍕 Pizza garam ho ya rishta... Dono ko ‘too cheesy’ hone se pehle enjoy karo!",
+    "🚦 Zindagi ki traffic light hai... Kabhi ruko, kabhi jhappi do, kabhi full speed bhaago!",
+
+    // 🌟 Unique & Quirky
+    "🌟 WhatsApp pe ‘online’ dikhao... Par asli life mein ‘offline’ rehne ka talent rakho!",
+    "🎮 Life ko video game samjho... Cheat codes dhundte raho, par game over se mat daro!",
+    "🕶️ Cool dikhna hai toh sunglasses pehno... Ya phir mere status ko copy-paste karo!",
+    "📸 Selfie lete waqt pose sochna... Aur zindagi mein bina soche decisions lena - same struggle!",
+    "🧳 Zindagi ka trip plan karo... Par kabhi kabhi baggage claim mein khud ko bhi chhod aao!",
+    "🎉 Party karne ka tareeka thoda kezual hai... 10 baje so jao, par status pe ‘night vibes’ dalo!",
+    "🍩 Donut ho ya zindagi... Dono mein hole hai, par maze toh hai hi!",
+    "🚶♂️ Chalte waqt AirPods lagana... Taaki log samjhe ‘main busy hoon, baat mat karo’!",
+    "🤳 Mirror selfie mein smile dikhao... Taaki duniya na jaane dil ka breakup hua hai!",
+    "🍜 Maggi banate waqt 2-minute ka intezar... Aur life goals ke liye 20 saal? Fair nahi hai!" ,
   ];
 
   var rand = tl[Math.floor(Math.random() * tl.length)];
@@ -110,7 +170,7 @@ module.exports.handleEvent = async function({ api, event, args, Threads, Users }
 
   if (event.body.indexOf("Bot") == 0 || (event.body.indexOf("bot") == 0)) {
     var msg = {
-      body: `🌺🌿💐${name}🌺🌿💐\n${rand}`
+      body: `🌺🌿💐${name}💐🌿🌺\n${rand}`
     }
     return api.sendMessage(msg, threadID, messageID);
   };
