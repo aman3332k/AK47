@@ -65,7 +65,7 @@ module.exports.handleEvent = async function({ api, event, args, Threads, Users }
   };
   // ... [Rest of your existing code] ...
 
-  if (event.body.indexOf("AK") == 0 || (event.body.indexOf("ak") == 0)) {
+  if (event.body.indexOf("Ak") == 0 || (event.body.indexOf("AK") == 0)) {
     var msg = {
       body: `🌿⚔️🌹${name}🌹⚔️🌿\n${rand}`
     }
