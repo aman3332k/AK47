@@ -1,9 +1,9 @@
 module.exports.config = {
     name: "sony",
-    version: "1.0.1",
+    version: "1.0.0",
     hasPermssion: 0,
-    credits: "Modified by Aman + GPT",
-    description: "Chat with Gemini AI (human-style replies)",
+    credits: "Modified by Aman",
+    description: "Chat with Gemini AI",
     commandCategory: "chatbots",
     usages: "[on/off] or [message]",
     cooldowns: 5,
@@ -14,34 +14,14 @@ module.exports.config = {
 
 const axios = require("axios");
 
-const starters = [
-    "Hmm... Suno 👂",
-    "Bhai simple hai...",
-    "Dekho meri jaan 🥹",
-    "Chhota sa jawaab hai 👉",
-    "Seedha jawab 👇",
-    "Toh suno ❤️"
-];
-
 async function askGemini(prompt) {
     try {
         const res = await axios.post("https://api-1-vsz6.onrender.com/ask", {
             message: prompt
         });
-
-        let reply = res.data.reply;
-
-        // ✂️ Optional: trim extra long reply
-        if (reply.length > 300) {
-            reply = reply.slice(0, 280) + "... 😉";
-        }
-
-        // ✨ Add human starter
-        const starter = starters[Math.floor(Math.random() * starters.length)];
-        return { error: false, data: `${starter}\n${reply}` };
-
+        return { error: false, data: res.data.reply }; // ✔️ Correct field
     } catch (err) {
-        return { error: true, data: "❌ Sony Error: " + err.message };
+        return { error: true, data: "❌ Gemini API error: " + err.message };
     }
 }
 
@@ -59,7 +39,7 @@ module.exports.handleEvent = async function ({ api, event }) {
 
         const { data, error } = await askGemini(body);
         if (error) return send(data);
-        return send(data);
+        return send("🤖 " + data);
     }
 };
 
@@ -67,7 +47,7 @@ module.exports.run = async function ({ api, event, args }) {
     const { threadID, messageID } = event;
     const send = msg => api.sendMessage(msg, threadID, messageID);
 
-    if (args.length === 0) return send("I am Sony: Bolo Meri Jaan Kaise Yad Kiya 😘");
+    if (args.length === 0) return send("i am Sony: Bolo Meri Jaan Kaise Yad Kiya 😘");
 
     switch (args[0].toLowerCase()) {
         case "on":
@@ -82,6 +62,6 @@ module.exports.run = async function ({ api, event, args }) {
             const input = args.join(" ");
             const { data, error } = await askGemini(input);
             if (error) return send(data);
-            return send(data);
+            return send("🤖 " + data);
     }
 };
