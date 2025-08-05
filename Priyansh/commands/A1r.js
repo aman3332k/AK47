@@ -14,13 +14,12 @@ module.exports.config = {
 
 const axios = require("axios");
 
-// ✅ FIXED: Use `message` instead of `prompt`
-async function askGemini(message) {
+async function askGemini(prompt) {
     try {
         const res = await axios.post("https://api-1-vsz6.onrender.com/ask", {
-            message: message
+            message: prompt
         });
-        return { error: false, data: res.data.response };
+        return { error: false, data: res.data.reply }; // ✔️ Correct field
     } catch (err) {
         return { error: true, data: "❌ Gemini API error: " + err.message };
     }
@@ -39,7 +38,7 @@ module.exports.handleEvent = async function ({ api, event }) {
         if (senderID == api.getCurrentUserID() || !body || messageID == global.gemini.get(threadID)) return;
 
         const { data, error } = await askGemini(body);
-        if (error) return;
+        if (error) return send(data);
         return send("🤖 " + data);
     }
 };
@@ -52,11 +51,11 @@ module.exports.run = async function ({ api, event, args }) {
 
     switch (args[0].toLowerCase()) {
         case "on":
-            if (global.gemini.has(threadID)) return send("✅ Gemini is already enabled.");
+            if (global.gemini.has(threadID)) return send("Gemini is already enabled.");
             global.gemini.set(threadID, messageID);
-            return send("✅ Gemini is now active. Type anything and I’ll respond.");
+            return send("✅ Gemini is now active.");
         case "off":
-            if (!global.gemini.has(threadID)) return send("⚠️ Gemini was not active.");
+            if (!global.gemini.has(threadID)) return send("Gemini was not active.");
             global.gemini.delete(threadID);
             return send("❎ Gemini has been turned off.");
         default:
