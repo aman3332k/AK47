@@ -1,5 +1,5 @@
 module.exports.config = {
-    name: "gemini",
+    name: "sony",
     version: "1.0.0",
     hasPermssion: 0,
     credits: "Modified by Aman",
@@ -53,7 +53,7 @@ module.exports.run = async function ({ api, event, args }) {
         case "on":
             if (global.gemini.has(threadID)) return send("Gemini is already enabled.");
             global.gemini.set(threadID, messageID);
-            return send("✅ Gemini is now active.");
+            return send("✅ Gemini is now active My Owner AK.");
         case "off":
             if (!global.gemini.has(threadID)) return send("Gemini was not active.");
             global.gemini.delete(threadID);
