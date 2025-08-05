@@ -2,7 +2,7 @@ module.exports.config = {
     name: "gemini",
     version: "1.0.0",
     hasPermssion: 0,
-    credits: "Modified by Aman ",
+    credits: "Modified by Aman",
     description: "Chat with Gemini AI",
     commandCategory: "chatbots",
     usages: "[on/off] or [message]",
@@ -14,10 +14,11 @@ module.exports.config = {
 
 const axios = require("axios");
 
-async function askGemini(prompt) {
+// ✅ FIXED: Use `message` instead of `prompt`
+async function askGemini(message) {
     try {
         const res = await axios.post("https://api-1-vsz6.onrender.com/ask", {
-            prompt: prompt
+            message: message
         });
         return { error: false, data: res.data.response };
     } catch (err) {
@@ -51,11 +52,11 @@ module.exports.run = async function ({ api, event, args }) {
 
     switch (args[0].toLowerCase()) {
         case "on":
-            if (global.gemini.has(threadID)) return send("Gemini is already enabled.");
+            if (global.gemini.has(threadID)) return send("✅ Gemini is already enabled.");
             global.gemini.set(threadID, messageID);
-            return send("✅ Gemini is now active.");
+            return send("✅ Gemini is now active. Type anything and I’ll respond.");
         case "off":
-            if (!global.gemini.has(threadID)) return send("Gemini was not active.");
+            if (!global.gemini.has(threadID)) return send("⚠️ Gemini was not active.");
             global.gemini.delete(threadID);
             return send("❎ Gemini has been turned off.");
         default:
