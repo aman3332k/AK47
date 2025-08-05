@@ -47,17 +47,17 @@ module.exports.run = async function ({ api, event, args }) {
     const { threadID, messageID } = event;
     const send = msg => api.sendMessage(msg, threadID, messageID);
 
-    if (args.length === 0) return send("🤖 Use: gemini on / off / <message>");
+    if (args.length === 0) return send("🤖 Use: Bolo Meri Jaan Kaise Yad Kiya 😘");
 
     switch (args[0].toLowerCase()) {
         case "on":
-            if (global.gemini.has(threadID)) return send("Gemini is already enabled.");
+            if (global.gemini.has(threadID)) return send("Sony is already enabled.");
             global.gemini.set(threadID, messageID);
-            return send("✅ Gemini is now active My Owner AK.");
+            return send("✅ Sony is now active My Owner AK.");
         case "off":
-            if (!global.gemini.has(threadID)) return send("Gemini was not active.");
+            if (!global.gemini.has(threadID)) return send("Sony was not active.");
             global.gemini.delete(threadID);
-            return send("❎ Gemini has been turned off.");
+            return send("❎ Sony has been turned off.");
         default:
             const input = args.join(" ");
             const { data, error } = await askGemini(input);
