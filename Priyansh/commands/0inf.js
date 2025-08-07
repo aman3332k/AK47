@@ -27,7 +27,7 @@ module.exports.handleEvent = async function ({ api, event }) {
         return api.sendMessage("⚠️ Gemini API ne sahi reply nahi diya.", threadID, messageID);
       }
 
-      return api.sendMessage(" I AM ⚔️" + res.data.reply, threadID, messageID);
+      return api.sendMessage("❤️" + res.data.reply, threadID, messageID);
     } catch (error) {
       console.error("Gemini API error:", error.message);
       return api.sendMessage("⚠️ Gemini API mein kuch issue aaya hai: " + error.message, threadID, messageID);
