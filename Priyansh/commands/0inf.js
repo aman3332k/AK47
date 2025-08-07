@@ -4,6 +4,11 @@ const path = require("path");
 
 const historyPath = path.join(__dirname, "../../utils/chatHistory.json");
 
+// Ensure chatHistory.json exists
+if (!fs.existsSync(historyPath)) {
+  fs.writeFileSync(historyPath, JSON.stringify({}, null, 2), "utf8");
+}
+
 module.exports.config = {
   name: "nano",
   version: "2.0.0",
@@ -18,14 +23,19 @@ module.exports.config = {
 function loadHistory() {
   try {
     const data = fs.readFileSync(historyPath, "utf8");
-    return JSON.parse(data);
+    return JSON.parse(data || "{}");
   } catch (err) {
+    console.error("❌ Error loading chat history:", err.message);
     return {};
   }
 }
 
 function saveHistory(history) {
-  fs.writeFileSync(historyPath, JSON.stringify(history, null, 2), "utf8");
+  try {
+    fs.writeFileSync(historyPath, JSON.stringify(history, null, 2), "utf8");
+  } catch (err) {
+    console.error("❌ Error saving chat history:", err.message);
+  }
 }
 
 module.exports.handleEvent = async function ({ api, event }) {
@@ -37,30 +47,30 @@ module.exports.handleEvent = async function ({ api, event }) {
     const history = loadHistory();
     const userHistory = history[senderID] || [];
 
-    // Push new message to history
+    // Add new user message
     userHistory.push({ role: "user", content: body });
 
-    // Keep only last 6 exchanges (user+bot)
+    // Keep only last 6 items (3 exchanges)
     if (userHistory.length > 6) userHistory.splice(0, userHistory.length - 6);
 
     try {
       const res = await axios.post("https://api-1-vsz6.onrender.com/ask", {
         message: body,
-        history: userHistory  // You must handle this in your API as well
+        history: userHistory
       });
 
       const reply = res.data?.reply || "⚠️ Gemini API ne sahi reply nahi diya.";
       api.sendMessage("❤️ " + reply, threadID, messageID);
 
-      // Add bot response to history
-      userHistory.push({ role: "sony", content: reply });
+      // Add bot reply
+      userHistory.push({ role: "bot", content: reply });
 
       // Save updated history
       history[senderID] = userHistory;
       saveHistory(history);
 
     } catch (error) {
-      console.error("Gemini API error:", error.message);
+      console.error("❌ Gemini API error:", error.message);
       api.sendMessage("⚠️ Gemini API mein kuch issue aaya hai: " + error.message, threadID, messageID);
     }
   }
