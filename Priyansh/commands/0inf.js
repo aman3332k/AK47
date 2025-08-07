@@ -17,7 +17,7 @@ module.exports.handleEvent = async function ({ api, event }) {
   if (!body || senderID == api.getCurrentUserID()) return;
 
   // Message must include the word "bot" (you can change this condition)
-  if (body.toLowerCase().includes("bot")) {
+  if (body.toLowerCase().includes("Sony")) {
     try {
       const res = await axios.post("https://api-1-vsz6.onrender.com/ask", {
         message: body
@@ -27,7 +27,7 @@ module.exports.handleEvent = async function ({ api, event }) {
         return api.sendMessage("⚠️ Gemini API ne sahi reply nahi diya.", threadID, messageID);
       }
 
-      return api.sendMessage("🤖 " + res.data.reply, threadID, messageID);
+      return api.sendMessage("i Am Sony " + res.data.reply, threadID, messageID);
     } catch (error) {
       console.error("Gemini API error:", error.message);
       return api.sendMessage("⚠️ Gemini API mein kuch issue aaya hai: " + error.message, threadID, messageID);
