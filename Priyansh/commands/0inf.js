@@ -17,7 +17,7 @@ module.exports.handleEvent = async function ({ api, event }) {
   if (!body || senderID == api.getCurrentUserID()) return;
 
   // Message must include the word "bot" (you can change this condition)
-  if (body.toLowerCase().includes("Sony")) {
+  if (body.toLowerCase().includes("sony")) {
     try {
       const res = await axios.post("https://api-1-vsz6.onrender.com/ask", {
         message: body
