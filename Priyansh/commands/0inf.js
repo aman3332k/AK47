@@ -1,41 +1,40 @@
-module.exports.config = {
-  name: "gemini",
-  version: "1.0.0",
-  hasPermssion: 0,
-  credits: "Modified by Aman",
-  description: "Auto reply with Gemini AI (no prefix)",
-  commandCategory: "chatbots",
-  usages: "",
-  cooldowns: 0,
-  dependencies: {
-    axios: ""
-  }
-};
-
 const axios = require("axios");
 
-async function askGemini(prompt) {
-  try {
-    const res = await axios.post("https://api-1-vsz6.onrender.com/ask", {
-      message: prompt
-    });
-    return { error: false, data: res.data.reply };
-  } catch (err) {
-    return { error: true, data: "⚠️ Gemini API mein kuch issue aaya hai, baad mein try karo.\n" + err.message };
-  }
-}
+module.exports.config = {
+  name: "nano",
+  version: "1.0.0",
+  hasPermssion: 0,
+  credits: "Aman",
+  description: "Gemini chatbot without prefix",
+  commandCategory: "no prefix",
+  usages: "no prefix",
+  cooldowns: 2
+};
 
 module.exports.handleEvent = async function ({ api, event }) {
-  const { threadID, messageID, senderID, body } = event;
-  if (!body || senderID === api.getCurrentUserID()) return;
+  const { threadID, messageID, body, senderID } = event;
 
-  try {
-    const { error, data } = await askGemini(body);
-    if (error) return api.sendMessage(data, threadID, messageID);
-    return api.sendMessage("🤖 " + data, threadID, messageID);
-  } catch (e) {
-    return;
+  if (!body || senderID == api.getCurrentUserID()) return;
+
+  // Message must include the word "bot" (you can change this condition)
+  if (body.toLowerCase().includes("bot")) {
+    try {
+      const res = await axios.post("https://api-1-vsz6.onrender.com/ask", {
+        message: body
+      });
+
+      if (!res.data || !res.data.reply) {
+        return api.sendMessage("⚠️ Gemini API ne sahi reply nahi diya.", threadID, messageID);
+      }
+
+      return api.sendMessage("🤖 " + res.data.reply, threadID, messageID);
+    } catch (error) {
+      console.error("Gemini API error:", error.message);
+      return api.sendMessage("⚠️ Gemini API mein kuch issue aaya hai: " + error.message, threadID, messageID);
+    }
   }
 };
 
-module.exports.run = async function () {};
+module.exports.run = async function () {
+  return;
+};
