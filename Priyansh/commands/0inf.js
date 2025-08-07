@@ -1,41 +1,29 @@
 const axios = require("axios");
 
-module.exports.config = {
-  name: "soni",
-  version: "1.1.0",
-  hasPermssion: 0,
-  credits: "Aman x ChatGPT",
-  description: "Chat with bot using Gemini",
-  commandCategory: "no prefix",
-  usages: "Message with 'bot'",
-  cooldowns: 1,
-};
+module.exports = {
+  name: "noPrefix",
+  async execute(message, bot) {
+    const userMsg = message.body;
 
-module.exports.handleEvent = async function ({ api, event }) {
-  const { threadID, messageID, body, senderID } = event;
+    // Ignore messages from bot itself
+    if (message.fromMe || !userMsg) return;
 
-  if (!body || !body.toLowerCase().includes("bot")) return;
-
-  const name = (await api.getUserInfo(senderID))[senderID].name;
-
-  // ✨ Gemini API Call
-  async function fetchGeminiReply(prompt) {
     try {
-      const res = await axios.post("https://api-1-vsz6.onrender.com/gemini", {
-        prompt
+      const response = await axios.post("https://api-1-vsz6.onrender.com/gemini", {
+        prompt: userMsg
       });
-      return res.data.reply || "Main samajh nahi paaya, thoda aur clearly poochho?";
-    } catch (err) {
-      console.error("❌ Gemini API Error:", err.message);
-      return "Gemini se reply nahi aaya. Kripya thodi der baad try karo.";
+
+      const reply = response.data?.reply;
+
+      if (reply) {
+        await bot.sendMessage(message.from, { text: reply }, { quoted: message });
+      } else {
+        await bot.sendMessage(message.from, { text: "⚠️ Gemini se reply nahi mila." }, { quoted: message });
+      }
+
+    } catch (error) {
+      console.error("Gemini API Error:", error.message);
+      await bot.sendMessage(message.from, { text: "❌ Gemini server down ho sakta hai. Baad me try karo." }, { quoted: message });
     }
-  }
-
-  api.sendTypingIndicator(threadID, true);
-  const reply = await fetchGeminiReply(body);
-  api.sendTypingIndicator(threadID, false);
-
-  return api.sendMessage(`🤖 ${reply}`, threadID, messageID);
+  },
 };
-
-module.exports.run = function () {};
