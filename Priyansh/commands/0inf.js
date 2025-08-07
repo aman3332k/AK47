@@ -1,62 +1,41 @@
+const axios = require("axios");
+
 module.exports.config = {
-	name: "info",
-	version: "1.0.1", 
-	hasPermssion: 0,
-	credits: "𝐏𝐫𝐢𝐲𝐚𝐧𝐬𝐡 𝐑𝐚𝐣𝐩𝐮𝐭",
-	description: "Admin and Bot info.",
-	commandCategory: "...",
-	cooldowns: 1,
-	dependencies: 
-	{
-    "request":"",
-    "fs-extra":"",
-    "axios":""
-  }
+  name: "soni",
+  version: "1.1.0",
+  hasPermssion: 0,
+  credits: "Aman x ChatGPT",
+  description: "Chat with bot using Gemini",
+  commandCategory: "no prefix",
+  usages: "Message with 'bot'",
+  cooldowns: 1,
 };
-module.exports.run = async function({ api,event,args,client,Users,Threads,__GLOBAL,Currencies }) {
-const axios = global.nodemodule["axios"];
-const request = global.nodemodule["request"];
-const fs = global.nodemodule["fs-extra"];
-const time = process.uptime(),
-		hours = Math.floor(time / (60 * 60)),
-		minutes = Math.floor((time % (60 * 60)) / 60),
-		seconds = Math.floor(time % 60);
-const moment = require("moment-timezone");
-var juswa = moment.tz("Asia/Dhaka").format("『D/MM/YYYY』 【HH:mm:ss】");
-var link =                                     
-["https://i.imghippo.com/files/lJ8376Tkc.jpg"];
-var callback = () => api.sendMessage({body:` ╾━╤デ╦︻(▀̿Ĺ̯▀̿ ̿)🇮🇳 𝐀𝐃𝐌𝐈𝐍 𝐀𝐍𝐃 𝐁𝐎𝐓 𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍 🇮🇳 
-(⌐▀͡ ̯ʖ▀)︻̷┻̿═━一-
 
-☄️Bot Name︎︎︎☄️  ${global.config.BOTNAME}
+module.exports.handleEvent = async function ({ api, event }) {
+  const { threadID, messageID, body, senderID } = event;
 
-🔥Bot Admin🔥☞︎︎︎  ☜︎︎︎✰ 𓆩ȺҞ𓆪💔🥀
+  if (!body || !body.toLowerCase().includes("bot")) return;
 
-🙈bot andmin owner facebook id link🙈➪ www.facebook.com/AK47xK  💞🕊️
+  const name = (await api.getUserInfo(senderID))[senderID].name;
 
-👋For Any Kind Of Help Contact 😇
+  // ✨ Gemini API Call
+  async function fetchGeminiReply(prompt) {
+    try {
+      const res = await axios.post("https://api-1-vsz6.onrender.com/gemini", {
+        prompt
+      });
+      return res.data.reply || "Main samajh nahi paaya, thoda aur clearly poochho?";
+    } catch (err) {
+      console.error("❌ Gemini API Error:", err.message);
+      return "Gemini se reply nahi aaya. Kripya thodi der baad try karo.";
+    }
+  }
 
-✧══════•❁❀❁•══════✧
+  api.sendTypingIndicator(threadID, true);
+  const reply = await fetchGeminiReply(body);
+  api.sendTypingIndicator(threadID, false);
 
-🌸Bot Prefix🌸☞︎︎︎☜︎︎︎✰ ${global.config.PREFIX}
+  return api.sendMessage(`🤖 ${reply}`, threadID, messageID);
+};
 
-♥️Bot Owner♥️ ☞︎︎︎☜︎︎︎✰ 𓆩ȺҞ𓆪
-
-🥳UPTIME🥳
-
-🌪️Today is🌪️ ☞︎︎︎☜︎︎︎✰ ${juswa} 
-
-⚡Bot is running⚡ ${hours}:${minutes}:${seconds}.
-
-✅Thanks for using ${global.config.BOTNAME} Bot🖤
-
-
-🦢🍒•••ꞪɛᏒɛ ɪʂ ɮ❍┼ ❍ωɳɜɽ ɳaʍɜ•••🌷💞
-┏━🕊️━━°❀•°:🎀🧸💙🧸🎀:°•❀°━━💞━┓
-🌸✦✧✧✧✧✰🍒𓆩ȺҞ𓆪🌿✰✧✧✧✧✦🌸
-┗━🕊️━━°❀•°:🎀🧸💙🧸🎀:°•❀°━━💞━┛
-
-
-`,attachment: fs.createReadStream(__dirname + "/cache/juswa.jpg")}, event.threadID, () => fs.unlinkSync(__dirname + "/cache/juswa.jpg")); 
-      return request(encodeURI(link[Math.floor(Math.random() * link.length)])).pipe(fs.createWriteStream(__dirname+"/cache/juswa.jpg")).on("close",() => callback());
-   };
+module.exports.run = function () {};
