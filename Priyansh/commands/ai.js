@@ -94,7 +94,7 @@ module.exports.handleEvent = async function({ api, event, args, Threads, Users }
     return api.sendMessage("Sach Mai Miss Kro To Achaw Bhi Laga Krega Mujhe", threadID);
   };
 
-  if (event.body.indexOf("Sony") == 0 || (event.body.indexOf("@SONY BOT") == 0)) {
+  if (event.body.indexOf("Bhut") == 0 || (event.body.indexOf("Bhoot") == 0)) {
     var msg = {
       body: `🎀🥀🪷${name}🪷🥀\n💖🎀 ${rand}`
     }
